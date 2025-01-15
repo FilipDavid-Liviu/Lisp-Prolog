@@ -16,10 +16,18 @@
     )
 )
 
+(defun max-all (&rest args)
+    (cond
+        ((null args) nil)
+        ((null (cdr args)) (car args))
+        (t (max-f (car args) (apply #'max-all (cdr args))))
+    )
+)
+
 (defun maximum (x)
     (cond
         ((numberp x) x)
         ((atom x) nil)
-        (t (apply #'max (mapcar #'maximum x)))
+        (t (apply #'max-all (mapcar #'maximum x)))
     )
 )
