@@ -7,10 +7,15 @@
     )
 )
 
-(defun substitute-el-with-list (x element new-list)
+(defun substitute-el-with-list-in (x element new-list)
     (cond
         ((equal x element) new-list)
         ((atom x) (list x))
-        (t (list (apply #'append (mapcar #'(lambda (y) (substitute-el-with-list y element new-list)) x))))
+        (t (list (apply #'append (mapcar #'(lambda (y) (substitute-el-with-list-in y element new-list)) x))))
     )
 )
+
+(defun substitute-el-with-list (x element new-list)
+    (car (substitute-el-with-list-in x element new-list))
+)
+
